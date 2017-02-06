@@ -14,6 +14,7 @@ public class SecondBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e(TAG, "onReceive:第二个广播接收器 "+intent.getStringExtra("name"));
+        String msg = getResultExtras(true).getString("msg");
+        Log.e(TAG, "onReceive:第二个广播接收器 "+intent.getStringExtra("name")+msg);
     }
 }

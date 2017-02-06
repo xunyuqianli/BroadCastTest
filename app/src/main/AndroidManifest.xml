@@ -3,12 +3,19 @@
           package="com.example.a27459.broadcastreceivertest">
 
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!--声明一个权限-->
     <permission
         android:protectionLevel="normal"
         android:name="scott.permission.MY_CALL_PHONE"/>
     <!--同一个应用中使用也要声明权限-->
     <uses-permission android:name="scott.permission.MY_CALL_PHONE"/>
+    <!--有序广播接收权限-->
+    <permission android:protectionLevel="normal"
+                android:name="scott.permission.MY_BROADCAST_PERMISSION" />
+    <!--使用此权限-->
+    <uses-permission android:name="scott.permission.MY_BROADCAST_PERMISSION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -35,6 +42,19 @@
         <service android:name=".MyService"
                  android:process="com.example.a27459.broadcastreceivertest.MyService"
             />
+        <receiver android:name=".NetWorkStateReceiver" >
+            <intent-filter >
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".BatteryReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_CHANGED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
 
 
     </application>

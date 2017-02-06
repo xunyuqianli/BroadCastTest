@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private ThirdReceiver thirdreceiver;
     private static final String BROADCAST_ACTION = "com.example.27459.broadcastreceivertest";
     private static final String BROADCAST_ACTION_TWO = "com.example.27459.SecondBroadcastReceiver";
+    private static final String BROADCAST_ACTION_Three = "com.example.27459.SecondBroadcastReceiver";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +28,19 @@ public class MainActivity extends AppCompatActivity {
         mBroadcastReceiver = new MyBroadcastReceiver();
         secondReceiver = new SecondBroadcastReceiver();
         thirdreceiver = new ThirdReceiver();
+
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BROADCAST_ACTION);
         IntentFilter intentFilter2 = new IntentFilter();
         intentFilter2.addAction(BROADCAST_ACTION_TWO);
+        intentFilter2.setPriority(99);
+        IntentFilter intentFilter3 = new IntentFilter();
+        intentFilter3.addAction(BROADCAST_ACTION_TWO);
+        intentFilter3.setPriority(100);
         registerReceiver(mBroadcastReceiver,intentFilter);
         //2.3广播接收者地址相同
         registerReceiver(secondReceiver,intentFilter2);
-        registerReceiver(thirdreceiver,intentFilter2);
+        registerReceiver(thirdreceiver,intentFilter3);
 
 
 
@@ -60,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction(BROADCAST_ACTION_TWO);
         intent.putExtra("name","xunyuqianli");
-        sendBroadcast(intent);
+        sendOrderedBroadcast(intent,"scott.permission.MY_BROADCAST_PERMISSION");
+
     }
 }
