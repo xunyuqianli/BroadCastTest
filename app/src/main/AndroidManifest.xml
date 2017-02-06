@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.example.a27459.broadcastreceivertest">
+
+
+    <!--声明一个权限-->
+    <permission
+        android:protectionLevel="normal"
+        android:name="scott.permission.MY_CALL_PHONE"/>
+    <!--同一个应用中使用也要声明权限-->
+    <uses-permission android:name="scott.permission.MY_CALL_PHONE"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!--为activity应用已定义的权限-->
+        <activity android:name=".SecondActivity"
+                  android:permission="scott.permission.MY_CALL_PHONE"
+                  android:process="com.example.a27459.broadcastreceivertest.SecondActivity">
+            <intent-filter>
+                <!-- 注意这个action 在其他应用中可使用此action访问此Activity -->
+                <action android:name="scott.intent.action.MY_CALL"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <service android:name=".MyService"
+                 android:process="com.example.a27459.broadcastreceivertest.MyService"
+            />
+
+
+    </application>
+
+</manifest>
